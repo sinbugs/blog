@@ -1,0 +1,12 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <title>Ejemplo de uso de Hystrix</title>
+    </head>
+    <body>
+        <h2>Lista de Posts</h2>
+        <ul>
+            <li th:each="p : ${posts}" th:text="${p}"></li>
+        </ul>
+    </body>
+</html>
