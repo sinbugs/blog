@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<configuration>
+	<appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+		<encoder>
+			<pattern>%d{HH:mm:ss.SSS} [%thread] [ID=%X{requestId}] [IP=%X{clientIp}] %-5level %logger{36} - %msg%n</pattern>
+			<!-- La siguiente configuración muestra el método y el número de línea que egneran el mensaje, pero no se 
+			     recomienda para entornos de alto rendimiento porque extraer esa información toma tiempo de procesamiento: -->
+			<!--  <pattern>%d{HH:mm:ss.SSS} [%thread] [ID=%X{requestId}] [IP=%X{clientIp}] %-5level %logger{36}.%method [%line] - %msg%n</pattern> -->
+		</encoder>
+	</appender>
+
+	<root level="info">
+		<appender-ref ref="STDOUT" />
+	</root>
+</configuration>
