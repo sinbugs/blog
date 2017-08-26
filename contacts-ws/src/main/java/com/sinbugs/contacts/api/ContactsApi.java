@@ -1,5 +1,8 @@
 package com.sinbugs.contacts.api;
 
+import javax.validation.Valid;
+
+import org.dozer.Mapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -14,10 +17,23 @@ public class ContactsApi {
 	
 	@Autowired
 	ContactService contactService;
+	
+	// Inyecta mapper de Dozer
+	@Autowired
+	Mapper mapper;
 	 
 	@RequestMapping(value="/contact", method=RequestMethod.POST)
-	public Contact updateOrSave(@RequestBody Contact contact){
-	    return contactService.save(contact);
+	public ContactResponse updateOrSave(@RequestBody @Valid ContactRequest contactRequest){
+		// Mapeo request dto ==> entity
+		Contact contact = mapper.map(contactRequest, Contact.class);
+	    
+		// Invoca l[ogica de negocio
+		Contact updatedContact = contactService.save(contact);
+	    
+		// Mapeo entity ==> response dto
+	    ContactResponse contactResponse = mapper.map(updatedContact, ContactResponse.class); 
+	    
+	    return contactResponse;
 	}
 	
 	@RequestMapping(value="/contact", method=RequestMethod.GET)
